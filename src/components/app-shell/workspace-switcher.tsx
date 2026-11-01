@@ -37,7 +37,7 @@ export function WorkspaceSwitcher({ current, workspaces, canCreate }: { current:
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="flex w-full items-center gap-2.5 rounded-[var(--radius-ctl)] border border-line bg-surface px-2.5 py-2 text-left shadow-card transition-colors hover:border-line-strong"
+        className="flex w-full items-center gap-2.5 rounded-[var(--radius-ctl)] px-2 py-2 text-left transition-colors hover:bg-surface-3/70"
       >
         <span className="grid size-7 shrink-0 place-items-center rounded-md bg-pen-soft font-mono text-[12px] font-semibold text-pen">
           {current.name.slice(0, 1).toUpperCase()}

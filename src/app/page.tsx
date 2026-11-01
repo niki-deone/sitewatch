@@ -1,221 +1,192 @@
 // src/app/page.tsx
 import Link from "next/link";
-import { ArrowRight, BellRing, Globe, KeyRound, Radar, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { demoEnabled } from "@/auth";
 import { signInAsDemo } from "@/lib/actions/auth";
+import { getCurrentUser } from "@/lib/dal";
 import { Logo } from "@/components/logo";
 import { Button, ButtonLink } from "@/components/ui";
-import { HeroInstrument } from "@/components/landing/hero-instrument";
-import { StatusMarquee } from "@/components/landing/status-marquee";
+import { SiteHeader } from "@/components/landing/site-header";
+import { RotatingWord } from "@/components/landing/rotating-word";
+import { ProductWindow } from "@/components/landing/product-window";
+import { StatusPreview } from "@/components/landing/status-preview";
 import { Reveal } from "@/components/landing/reveal";
 import { BarsVisual, PipelineVisual, SslVisual, TeamVisual } from "@/components/landing/feature-visuals";
 
 const GITHUB_URL = "https://github.com/niki-deone/sitewatch";
 
-function DemoButton({ size = "lg", variant = "primary" }: { size?: "md" | "lg"; variant?: "primary" | "secondary" }) {
-  if (!demoEnabled) {
+async function PrimaryActions() {
+  const user = await getCurrentUser();
+  
+  if (user) {
     return (
-      <ButtonLink href="/login" size={size} variant={variant}>
-        Get started <ArrowRight className="size-4" aria-hidden />
-      </ButtonLink>
+      <div className="flex flex-wrap justify-center gap-3">
+        <ButtonLink href="/app" size="lg">
+          Open your dashboard <ArrowRight className="size-4" aria-hidden />
+        </ButtonLink>
+      </div>
     );
   }
+
   return (
-    <form action={signInAsDemo}>
-      <Button type="submit" size={size} variant={variant}>
-        Explore the live demo <ArrowRight className="size-4" aria-hidden />
-      </Button>
-    </form>
+    <div className="flex flex-wrap justify-center gap-3">
+      {demoEnabled ? (
+        <form action={signInAsDemo}>
+          <Button type="submit" size="lg">
+            Try the live demo
+          </Button>
+        </form>
+      ) : null}
+      <ButtonLink href="/login" size="lg" variant="soft">
+        Start free with GitHub
+      </ButtonLink>
+    </div>
   );
 }
 
-export default function LandingPage() {
+export default async function LandingPage() {
   return (
     <div className="min-h-dvh">
-      <header className="sticky top-0 z-40 border-b border-line/70 bg-paper/85 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6">
-          <Logo />
-          <nav aria-label="Main" className="hidden items-center gap-7 text-[14px] text-ink-2 md:flex">
-            <a href="#features" className="hover:text-ink">
-              Features
-            </a>
-            <a href="#how" className="hover:text-ink">
-              How it works
-            </a>
-            <Link href="/status/demo" className="hover:text-ink">
-              Status page
-            </Link>
-            <a href={GITHUB_URL} className="hover:text-ink" target="_blank" rel="noreferrer">
-              GitHub
-            </a>
-          </nav>
-          <div className="flex items-center gap-2">
-            <ButtonLink href="/login" variant="ghost" size="sm" className="hidden sm:inline-flex">
-              Sign in
-            </ButtonLink>
-            <ButtonLink href="/login" size="sm">
-              Start monitoring
-            </ButtonLink>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main>
-        {/* Hero */}
-        <section className="graph-paper relative overflow-hidden">
-          <div className="mx-auto grid max-w-[1200px] items-center gap-14 px-4 pb-24 pt-16 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pb-32 lg:pt-24">
-            <div>
-              <Reveal>
-                <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 font-mono text-[12px] text-ink-2 shadow-card">
-                  <span className="relative inline-block size-1.5 rounded-full bg-up text-up status-ping" aria-hidden />
-                  Uptime monitoring for small teams
-                </p>
-              </Reveal>
-              <Reveal delay={0.08}>
-                <h1 className="mt-6 text-[42px] font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px] lg:text-[64px]">
-                  Know it&apos;s down
-                  <br />
-                  <span className="relative inline-block">
-                    before they do.
-                    <svg className="absolute -bottom-2 left-0 h-3 w-full" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden>
-                      <path d="M2 8 L70 8 L82 2 L96 11 L108 8 L298 8" fill="none" stroke="var(--down)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="draw-in" style={{ ["--dash" as string]: 320, animationDelay: "0.6s" }} />
-                    </svg>
-                  </span>
-                </h1>
-              </Reveal>
-              <Reveal delay={0.16}>
-                <p className="mt-7 max-w-[520px] text-[17px] leading-relaxed text-ink-2">
-                  SiteWatch checks your websites and APIs every few minutes, opens an incident the moment one breaks, pings your team in Slack or Discord and keeps a public status page up to date.
-                </p>
-              </Reveal>
-              <Reveal delay={0.24}>
-                <div className="mt-9 flex flex-wrap items-center gap-3">
-                  <DemoButton />
-                  <ButtonLink href="/login" size="lg" variant="secondary">
-                    Sign in with GitHub
-                  </ButtonLink>
-                </div>
-                <p className="mt-4 text-[13px] text-ink-3">The demo is a real, read-only workspace. No sign-up needed.</p>
-              </Reveal>
-            </div>
+        {/* Hero: one statement, one action, then the product itself. */}
+        <section className="mx-auto max-w-[1200px] px-4 pt-16 text-center sm:px-6 sm:pt-24">
+          <Reveal>
+            <h1 className="display mx-auto text-[42px] sm:text-[60px] lg:text-[76px]">
+              Know it&apos;s down
+              <br />
+              <span className="sm:whitespace-nowrap">
+                before your <RotatingWord /> do.
+              </span>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mx-auto mt-6 max-w-[640px] text-[17px] leading-relaxed text-ink-2 sm:text-[19px]">
+              SiteWatch checks your sites every few minutes, tells your team the moment one breaks and keeps a public status page honest.
+            </p>
+          </Reveal>
+          <Reveal delay={0.18} className="mt-9">
+            <PrimaryActions />
+          </Reveal>
 
-            <div className="lg:pl-4">
-              <HeroInstrument />
-            </div>
+          <div className="mx-auto mt-16 max-w-[1080px] pb-6 text-left sm:mt-20">
+            <ProductWindow />
           </div>
         </section>
 
-        <StatusMarquee />
-
-        {/* Features */}
-        <section id="features" className="mx-auto max-w-[1200px] scroll-mt-20 px-4 py-24 sm:px-6 lg:py-32">
+        {/* Features, Notion-style: a big plain statement, then cards that show the real thing. */}
+        <section id="features" className="mx-auto max-w-[1200px] scroll-mt-20 px-4 pb-24 pt-32 sm:px-6 lg:pb-32 lg:pt-40">
           <Reveal>
-            <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-pen">What you get</p>
-            <h2 className="mt-3 max-w-2xl text-[34px] font-semibold leading-tight tracking-[-0.025em] sm:text-[42px]">
-              Everything a small team needs to stop finding outages on Twitter.
-            </h2>
+            <h2 className="display max-w-[760px] text-[38px] sm:text-[52px]">Everything you need. Nothing you don&apos;t.</h2>
+            <p className="mt-5 max-w-[560px] text-[17px] leading-relaxed text-ink-2">
+              No agents to install, no YAML. Paste a URL and the first check runs before the page reloads.
+            </p>
           </Reveal>
 
-          <div className="mt-14 grid gap-4 md:grid-cols-6">
-            <Reveal className="md:col-span-4">
-              <FeatureCard icon={<Radar className="size-5" />} title="Checks that don't cry wolf" body="HTTP checks every 5 to 60 minutes with timeouts, status code and keyword assertions. A failed check is retried once before anyone gets paged.">
+          <div className="mt-14 grid gap-4 md:grid-cols-2">
+            <Reveal>
+              <FeatureCard title="Checks that don't cry wolf" body="Timeouts, status codes and keywords. A failed check is retried once before anyone gets paged.">
                 <BarsVisual />
               </FeatureCard>
             </Reveal>
-            <Reveal className="md:col-span-2" delay={0.08}>
-              <FeatureCard icon={<ShieldCheck className="size-5" />} title="SSL expiry warnings" body="Certificates are inspected twice a day, so an expiring cert never takes you down by surprise.">
-                <SslVisual />
-              </FeatureCard>
-            </Reveal>
-            <Reveal className="md:col-span-3" delay={0.04}>
-              <FeatureCard icon={<BellRing className="size-5" />} title="Incidents and alerts" body="Incidents open and close on their own. Slack or Discord gets one message when it breaks and one when it's back, with the duration.">
+            <Reveal delay={0.06}>
+              <FeatureCard title="Incidents that close themselves" body="One message in Slack or Discord when it breaks, one when it's back, with how long it took.">
                 <PipelineVisual />
               </FeatureCard>
             </Reveal>
-            <Reveal className="md:col-span-3" delay={0.12}>
-              <FeatureCard icon={<Users className="size-5" />} title="Built for teams" body="Separate workspaces per client or project. Invite people by link as owner, admin, member or read-only viewer.">
+            <Reveal delay={0.03}>
+              <FeatureCard title="SSL before it bites" body="Certificates are checked twice a day, so an expiring cert never takes you down by surprise.">
+                <SslVisual />
+              </FeatureCard>
+            </Reveal>
+            <Reveal delay={0.09}>
+              <FeatureCard title="Built for teams" body="A workspace per client or project. Invite people by link as owner, admin, member or viewer.">
                 <TeamVisual />
-                <div className="mt-5 flex items-center gap-2 rounded-lg border border-dashed border-line-strong px-3 py-2.5 font-mono text-[12px] text-ink-3">
-                  <KeyRound className="size-3.5" aria-hidden /> /invite/x7Kp…Qm · one use · 7 days
-                </div>
               </FeatureCard>
             </Reveal>
           </div>
         </section>
 
-        {/* How it works */}
-        <section id="how" className="scroll-mt-20 border-y border-line bg-surface">
-          <div className="mx-auto grid max-w-[1200px] gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:py-28">
+        {/* The one dark section: the page your customers see. */}
+        <section className="bg-night text-white">
+          <div className="mx-auto grid max-w-[1200px] items-center gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[1fr_1fr] lg:py-32">
             <Reveal>
-              <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-pen">How it works</p>
-              <h2 className="mt-3 text-[32px] font-semibold leading-tight tracking-[-0.025em] sm:text-[38px]">From URL to status page in about a minute.</h2>
-              <p className="mt-4 text-[15.5px] leading-relaxed text-ink-2">
-                No agents, no YAML. Paste a URL, pick an interval, and the first check runs before the page reloads.
+              <h2 className="display text-[38px] sm:text-[52px]">Your customers see the truth.</h2>
+              <p className="mt-5 max-w-[460px] text-[17px] leading-relaxed text-white/70">
+                One switch publishes a status page with 90 days of history and recent incidents. Fewer &ldquo;is it just me?&rdquo; tickets, more trust.
               </p>
+              <Link
+                href="/status/demo"
+                className="mt-9 inline-flex h-12 items-center gap-2 rounded-[var(--radius-ctl)] bg-white px-6 text-[15.5px] font-medium text-[#111] transition-colors hover:bg-white/85"
+              >
+                See a live status page <ArrowUpRight className="size-4" aria-hidden />
+              </Link>
             </Reveal>
-            <ol className="grid gap-4">
-              {[
-                ["01", "Add a monitor", "Name, URL, interval. Optional: expected status code, a keyword that must appear, a slow-response threshold."],
-                ["02", "SiteWatch keeps watch", "A scheduler claims due monitors in batches, runs the checks in parallel and stores every result for 90 days."],
-                ["03", "You hear about it first", "Two failures in a row open an incident and send your webhook. The next passing check resolves it automatically."],
-                ["04", "Customers see the truth", "Turn on the public status page and share the link. It shows uptime bars and incidents, never your URLs or settings."],
-              ].map(([number, title, body], index) => (
-                <Reveal key={number} delay={index * 0.07}>
-                  <li className="grid grid-cols-[auto_1fr] gap-5 rounded-[var(--radius-card)] border border-line bg-paper p-5">
-                    <span className="font-mono text-[13px] font-semibold text-pen">{number}</span>
-                    <div>
-                      <h3 className="text-[16px] font-semibold">{title}</h3>
-                      <p className="mt-1 text-[14px] leading-relaxed text-ink-2">{body}</p>
-                    </div>
-                  </li>
-                </Reveal>
-              ))}
-            </ol>
+            <Reveal delay={0.1}>
+              <StatusPreview />
+            </Reveal>
           </div>
         </section>
 
-        {/* Status page + engineering */}
-        <section className="mx-auto grid max-w-[1200px] gap-6 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:py-32">
+        {/* How it works, as plain numbered columns. */}
+        <section className="mx-auto max-w-[1200px] px-4 py-24 sm:px-6 lg:py-32">
           <Reveal>
-            <div className="h-full rounded-[18px] border border-line bg-surface p-7 shadow-card sm:p-9">
-              <Globe className="size-6 text-pen" aria-hidden />
-              <h2 className="mt-5 text-[26px] font-semibold tracking-tight">A status page your customers can trust</h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-ink-2">
-                One toggle publishes it. 90 days of history per service, recent incidents, refreshed every minute. Fewer &ldquo;is it just me?&rdquo; support tickets.
-              </p>
-              <ButtonLink href="/status/demo" variant="secondary" className="mt-7">
-                See the demo status page <ArrowRight className="size-4" aria-hidden />
-              </ButtonLink>
-            </div>
+            <h2 className="display max-w-[900px] text-[38px] sm:text-[52px]">From URL to status page in a minute.</h2>
           </Reveal>
-          <Reveal delay={0.08}>
-            <div className="h-full rounded-[18px] border border-ink bg-ink p-7 text-paper shadow-pop sm:p-9">
-              <p className="font-mono text-[12px] uppercase tracking-[0.2em] opacity-60">Under the hood</p>
-              <h2 className="mt-4 text-[26px] font-semibold tracking-tight">Small, boring, careful engineering</h2>
-              <ul className="mt-5 grid gap-3 text-[14.5px] leading-relaxed opacity-90">
-                <li>Next.js 16 App Router, Server Actions and TypeScript strict mode</li>
-                <li>Postgres with Drizzle ORM, aggregations done in SQL</li>
-                <li>Concurrency-safe scheduler using <span className="font-mono text-[13px]">FOR UPDATE SKIP LOCKED</span></li>
-                <li>SSRF protection: private and cloud metadata addresses are refused on every redirect hop</li>
-                <li>Tenant isolation enforced in one data access layer, roles checked on every action</li>
-              </ul>
-              <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 text-[14px] font-medium underline-offset-4 hover:underline">
-                Read the source on GitHub <ArrowRight className="size-4" aria-hidden />
-              </a>
-            </div>
-          </Reveal>
+          <ol className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Add a monitor", "Name, URL and how often. Optional: the status code to expect and a word that must be on the page."],
+              ["We keep watch", "Due monitors are checked in parallel every few minutes. Every result is kept for 90 days."],
+              ["You hear first", "Two failures in a row open an incident and ping your channel. The next good check closes it."],
+              ["Share the page", "Turn on the public status page. It shows uptime and incidents, never your URLs or settings."],
+            ].map(([title, body], index) => (
+              <Reveal key={title} delay={index * 0.06}>
+                <li>
+                  <span className="text-[44px] font-bold leading-none tracking-[-0.04em] text-line-strong">{index + 1}</span>
+                  <h3 className="mt-4 text-[18px] font-semibold tracking-[-0.01em]">{title}</h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{body}</p>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
         </section>
 
-        {/* Final CTA */}
-        <section className="graph-paper border-t border-line">
-          <div className="mx-auto max-w-[1200px] px-4 py-24 text-center sm:px-6">
+        {/* Engineering, for the technical reader. Kept quiet on purpose. */}
+        <section className="border-t border-line">
+          <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
             <Reveal>
-              <h2 className="mx-auto max-w-2xl text-[34px] font-semibold leading-tight tracking-[-0.025em] sm:text-[44px]">The next outage is already scheduled. Be the first to know.</h2>
-              <div className="mt-9 flex flex-wrap justify-center gap-3">
-                <ButtonLink href="/login" size="lg">
-                  Start monitoring free
-                </ButtonLink>
-                <DemoButton variant="secondary" />
+              <h2 className="text-[26px] font-bold tracking-[-0.03em]">Small, careful engineering</h2>
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-[15px] font-medium text-pen hover:underline">
+                Read the source on GitHub <ArrowUpRight className="size-4" aria-hidden />
+              </a>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <ul className="grid gap-x-10 gap-y-5 text-[15px] leading-relaxed text-ink-2 sm:grid-cols-2">
+                <li>
+                  <strong className="font-semibold text-ink">Next.js 16 and TypeScript strict.</strong> Server Components and Server Actions, no client-side data fetching.
+                </li>
+                <li>
+                  <strong className="font-semibold text-ink">Postgres with Drizzle.</strong> Uptime and charts are aggregated in SQL, not in the browser.
+                </li>
+                <li>
+                  <strong className="font-semibold text-ink">Safe scheduler.</strong> Monitors are claimed with <code className="font-mono text-[13px]">FOR UPDATE SKIP LOCKED</code>, so overlapping runs never double-check.
+                </li>
+                <li>
+                  <strong className="font-semibold text-ink">SSRF protection.</strong> Private and cloud-metadata addresses are refused on every redirect hop.
+                </li>
+              </ul>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Final call to action */}
+        <section className="bg-surface-2">
+          <div className="mx-auto max-w-[1200px] px-4 py-24 text-center sm:px-6 lg:py-32">
+            <Reveal>
+              <h2 className="display mx-auto max-w-[760px] text-[38px] sm:text-[56px]">The next outage is coming. Hear about it first.</h2>
+              <div className="mt-10">
+                <PrimaryActions />
               </div>
             </Reveal>
           </div>
@@ -223,24 +194,28 @@ export default function LandingPage() {
       </main>
 
       <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-8 text-[13px] text-ink-3 sm:px-6">
+        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-8 text-[13.5px] text-ink-3 sm:px-6">
           <Logo />
-          <p>An open-source portfolio project by Nikita. Built with Next.js, Postgres and Drizzle.</p>
+          <p>An open-source portfolio project by Nikita. Next.js, Postgres, Drizzle.</p>
         </div>
       </footer>
     </div>
   );
 }
 
-function FeatureCard({ icon, title, body, children }: { icon: React.ReactNode; title: string; body: string; children?: React.ReactNode }) {
+function FeatureCard({ title, body, children }: { title: string; body: string; children: React.ReactNode }) {
   return (
-    <article className="group flex h-full flex-col rounded-[18px] border border-line bg-surface p-6 shadow-card transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-pop sm:p-7">
-      <span className="grid size-10 place-items-center rounded-[10px] bg-pen-soft text-pen" aria-hidden>
-        {icon}
-      </span>
-      <h3 className="mt-5 text-[19px] font-semibold tracking-tight">{title}</h3>
-      <p className="mt-2 text-[14.5px] leading-relaxed text-ink-2">{body}</p>
-      {children ? <div className="mt-auto pt-7">{children}</div> : null}
+    <article className="group flex h-full flex-col rounded-[18px] bg-surface-2 p-6 transition-colors hover:bg-surface-3/70 sm:p-8">
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="text-[21px] font-bold tracking-[-0.02em]">{title}</h3>
+        <span className="grid size-7 shrink-0 place-items-center rounded-full bg-ink text-paper transition-transform group-hover:translate-x-0.5" aria-hidden>
+          <ArrowRight className="size-3.5" />
+        </span>
+      </div>
+      <p className="mt-2 max-w-[440px] text-[15px] leading-relaxed text-ink-2">{body}</p>
+      <div className="mt-auto pt-8">
+        <div className="rounded-[12px] bg-surface p-5 shadow-card">{children}</div>
+      </div>
     </article>
   );
 }

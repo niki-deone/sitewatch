@@ -29,7 +29,7 @@ export function NavLinks({ slug, openIncidents, orientation = "vertical" }: { sl
             className={cx(
               "group flex items-center gap-2.5 rounded-[var(--radius-ctl)] px-2.5 text-[13.5px] font-medium transition-colors",
               orientation === "vertical" ? "h-9" : "h-9 shrink-0",
-              active ? "bg-surface text-ink shadow-card ring-1 ring-line" : "text-ink-2 hover:bg-surface/70 hover:text-ink",
+              active ? "bg-surface-3 text-ink" : "text-ink-2 hover:bg-surface-3/70 hover:text-ink",
             )}
           >
             <Icon className={cx("size-4", active ? "text-pen" : "text-ink-3 group-hover:text-ink-2")} strokeWidth={1.8} aria-hidden />

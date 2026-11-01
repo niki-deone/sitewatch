@@ -24,7 +24,7 @@ export default async function WorkspaceLayout({ children, params }: { children: 
 
   return (
     <div className="flex min-h-dvh flex-col lg:flex-row">
-      <aside className="hidden w-[260px] shrink-0 flex-col gap-5 border-r border-line bg-paper px-3 py-4 lg:sticky lg:top-0 lg:flex lg:h-dvh">
+      <aside className="hidden w-[260px] shrink-0 flex-col gap-5 border-r border-line bg-surface-2 px-3 py-4 lg:sticky lg:top-0 lg:flex lg:h-dvh">
         <Link href="/" className="flex items-center gap-2 px-1.5" aria-label="SiteWatch home">
           <LogoMark size={26} />
           <span className="text-[16px] font-semibold tracking-tight">SiteWatch</span>

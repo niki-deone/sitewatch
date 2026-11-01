@@ -35,7 +35,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <section className="flex flex-col px-6 py-8 sm:px-12">
         <Logo />
         <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-12">
-          <h1 className="text-[30px] font-semibold leading-tight tracking-[-0.02em]">Sign in to SiteWatch</h1>
+          <h1 className="display text-[36px]">Sign in to SiteWatch</h1>
           <p className="mt-2 text-[15px] text-ink-2">Your monitors, incidents and status page in one place.</p>
 
           {error ? (
@@ -82,12 +82,12 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </div>
       </section>
 
-      <aside className="graph-paper relative hidden overflow-hidden border-l border-line lg:block" aria-hidden>
+      <aside className="relative hidden overflow-hidden bg-surface-2 lg:block" aria-hidden>
         <div className="absolute inset-0 flex flex-col justify-center gap-10 px-14">
           <RecorderTrace className="h-[220px] w-full" />
           <div className="max-w-md">
-            <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-ink-3">api.acme.dev · every 5 min</p>
-            <p className="mt-3 text-[22px] font-medium leading-snug tracking-tight">
+            <p className="text-[13px] text-ink-3">api.acme.dev · checked every 5 minutes</p>
+            <p className="display mt-3 text-[32px]">
               Hear about the outage from your monitor, not from a customer.
             </p>
           </div>

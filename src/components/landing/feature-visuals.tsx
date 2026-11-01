@@ -81,7 +81,7 @@ export function SslVisual() {
         />
       </svg>
       <div>
-        <div className="font-mono text-[26px] font-semibold leading-none text-degraded tabular">21 days</div>
+        <div className="text-[28px] font-bold leading-none tracking-[-0.03em] text-degraded tabular">21 days</div>
         <div className="mt-1 text-[12.5px] text-ink-3">until shop.acme.com&apos;s certificate expires</div>
       </div>
     </div>

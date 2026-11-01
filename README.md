@@ -16,7 +16,7 @@ Uptime monitoring for small teams. SiteWatch checks websites and APIs on a sched
 - **Workspaces and roles** (owner, admin, member, viewer) with single-use invite links that expire after 7 days.
 - **Public status page** per workspace with 90-day uptime bars and recent incidents. It never exposes URLs, keywords or error messages.
 - **Dashboard** with live refresh, 24h/7d/30d response-time charts (hand-built SVG), p95, and per-day uptime history.
-- **Read-only demo account** so visitors can explore without signing up.
+- **Read-only demo account** so visitors can explore without signing up. The demo workspace is created automatically on the first demo login.
 
 | Overview | Monitor detail |
 | --- | --- |
@@ -29,7 +29,7 @@ Uptime monitoring for small teams. SiteWatch checks websites and APIs on a sched
 ## Tech stack
 
 - **Next.js 16** (App Router, Server Components, Server Actions), **React 19**, **TypeScript** strict
-- **Tailwind CSS v4** with a small token-based design system, **Motion** for landing page animation
+- **Tailwind CSS v4** with a small token-based design system (Inter, one accent colour), **Motion** for landing page animation
 - **Postgres** (Neon in production) with **Drizzle ORM** and SQL migrations
 - **Auth.js v5** with GitHub OAuth and JWT sessions
 - **Vitest** for unit tests, GitHub Actions for CI and for the 5-minute scheduler
@@ -92,7 +92,7 @@ To monitor `localhost` services during development, set `ALLOW_PRIVATE_TARGETS=1
 1. **Database.** Create a project on [Neon](https://neon.tech) and copy the **pooled** connection string.
 2. **GitHub OAuth app.** GitHub → Settings → Developer settings → OAuth Apps → New. Homepage: your Vercel URL. Callback: `https://YOUR-DOMAIN/api/auth/callback/github`.
 3. **Vercel project.** Import the repository and add the environment variables from `.env.example` (`DATABASE_URL`, `AUTH_SECRET`, `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET`, `CRON_SECRET`, `APP_URL`). The `vercel-build` script runs migrations before building.
-4. **Demo data.** Run `npm run db:seed` once from your machine with `DATABASE_URL` pointing at Neon.
+4. **Demo data.** Nothing to do: the first click on "Try the live demo" creates the demo workspace. `npm run db:seed` recreates it from scratch if needed.
 5. **Scheduler.** In the GitHub repository → Settings → Secrets and variables → Actions, add `APP_URL` and `CRON_SECRET`. The `Run monitor checks` workflow starts calling the endpoint every 5 minutes. GitHub may delay scheduled workflows by a few minutes under load.
 
 ## Honest limitations

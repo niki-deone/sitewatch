@@ -4,15 +4,16 @@ import type { ComponentProps, ReactNode } from "react";
 import { cx } from "@/lib/cx";
 import type { MonitorStatus } from "@/db/schema";
 
-type Variant = "primary" | "secondary" | "ghost" | "danger";
+type Variant = "primary" | "secondary" | "soft" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-[var(--radius-ctl)] font-medium whitespace-nowrap transition-[background-color,border-color,color,transform,box-shadow] duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-ink text-paper hover:bg-ink-2 shadow-card",
-  secondary: "bg-surface text-ink border border-line hover:border-line-strong hover:bg-surface-2 shadow-card",
+  primary: "bg-pen text-white hover:bg-pen-hover",
+  secondary: "bg-surface text-ink border border-line-strong hover:bg-surface-2",
+  soft: "bg-pen-soft text-pen hover:bg-pen-soft/60",
   ghost: "text-ink-2 hover:text-ink hover:bg-surface-2",
   danger: "bg-surface text-down border border-line hover:border-down hover:bg-down-soft",
 };
@@ -20,7 +21,7 @@ const variants: Record<Variant, string> = {
 const sizes: Record<Size, string> = {
   sm: "h-8 px-3 text-[13px]",
   md: "h-10 px-4 text-sm",
-  lg: "h-12 px-6 text-[15px]",
+  lg: "h-12 px-6 text-[15.5px]",
 };
 
 export function buttonClass(variant: Variant = "primary", size: Size = "md", className?: string) {
@@ -46,7 +47,7 @@ export function ButtonLink({
 }
 
 export function Card({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cx("rounded-[var(--radius-card)] border border-line bg-surface shadow-card", className)} {...props} />;
+  return <div className={cx("rounded-[var(--radius-card)] border border-line bg-surface", className)} {...props} />;
 }
 
 export function CardHeader({ title, description, action }: { title: ReactNode; description?: ReactNode; action?: ReactNode }) {

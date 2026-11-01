@@ -2,6 +2,7 @@
 import "server-only";
 import { eq } from "drizzle-orm";
 import { db, schema } from "@/db";
+import { ensureDemoUser } from "./demo-seed";
 import { randomSuffix, slugify } from "./slug";
 
 type GithubProfile = {
@@ -58,6 +59,7 @@ export async function upsertGithubUser(profile: GithubProfile): Promise<string> 
   });
 }
 
+/** The demo account. Creates the demo workspace on first use so a fresh deployment needs no manual seeding. */
 export async function findDemoUser() {
-  return db.query.users.findFirst({ where: eq(schema.users.isDemo, true) });
+  return ensureDemoUser(db);
 }
