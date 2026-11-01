@@ -9,6 +9,7 @@ import { LogoMark } from "@/components/logo";
 import { NavLinks } from "@/components/app-shell/nav-links";
 import { UserMenu } from "@/components/app-shell/user-menu";
 import { WorkspaceSwitcher } from "@/components/app-shell/workspace-switcher";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default async function WorkspaceLayout({ children, params }: { children: React.ReactNode; params: Promise<{ ws: string }> }) {
   const { ws } = await params;
@@ -54,6 +55,10 @@ export default async function WorkspaceLayout({ children, params }: { children: 
               for your own workspace.
             </div>
           ) : null}
+          <div className="flex items-center justify-between px-1">
+            <span className="text-[12.5px] text-ink-3">Theme</span>
+            <ThemeToggle />
+          </div>
           <div className="border-t border-line pt-3">
             <UserMenu user={user} />
           </div>
@@ -69,6 +74,7 @@ export default async function WorkspaceLayout({ children, params }: { children: 
           <div className="min-w-0 flex-1">
             <WorkspaceSwitcher current={current} workspaces={workspaces} canCreate={!user.isDemo} />
           </div>
+          <ThemeToggle />
           <form action={signOutAction}>
             <button
               type="submit"

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getCurrentUser } from "@/lib/dal";
 import { Logo } from "@/components/logo";
 import { ButtonLink } from "@/components/ui";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const GITHUB_URL = "https://github.com/niki-deone/sitewatch";
 
@@ -27,6 +28,7 @@ export async function SiteHeader() {
           </a>
         </nav>
         <div className="flex items-center gap-2">
+          <ThemeToggle className="mr-1 hidden sm:inline-flex" />
           {user ? (
             <>
               <span className="hidden items-center gap-2 text-[13.5px] text-ink-2 sm:flex">

@@ -2,6 +2,7 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/manrope";
 import "./globals.css";
+import { themeInitScript } from "@/lib/theme";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.APP_URL ?? "http://localhost:3000"),
@@ -27,7 +28,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="h-full antialiased">
+    // The inline script may add data-theme before React hydrates, hence suppressHydrationWarning.
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

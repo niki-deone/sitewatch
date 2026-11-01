@@ -7,6 +7,7 @@ import { demoEnabled, githubEnabled } from "@/auth";
 import { getCurrentUser } from "@/lib/dal";
 import { signInAsDemo, signInWithGithub } from "@/lib/actions/auth";
 import { Logo } from "@/components/logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui";
 import { RecorderTrace } from "@/components/landing/recorder-trace";
 
@@ -33,7 +34,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   return (
     <main className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
       <section className="flex flex-col px-6 py-8 sm:px-12">
-        <Logo />
+        <div className="flex items-center justify-between gap-4">
+          <Logo />
+          <ThemeToggle />
+        </div>
         <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-12">
           <h1 className="display text-[36px]">Sign in to SiteWatch</h1>
           <p className="mt-2 text-[15px] text-ink-2">Your monitors, incidents and status page in one place.</p>
