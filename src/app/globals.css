@@ -1,59 +1,175 @@
 /* src/app/globals.css */
 @import "tailwindcss";
 
-@theme inline {
-  /* Backlit Instrument — surfaces */
-  --color-bg: #0F1214;
-  --color-surface: #171B1F;
-  --color-surface-2: #1F252A;
-  --color-line: #2C343B;
-  --color-line-bright: #3D474F;
-
-  /* Ink */
-  --color-ink: #EDE6DA;
-  --color-ink-soft: #98A2AA;
-  --color-ink-faint: #67727A;
-
-  /* Signal set */
-  --color-pass: #4FB08A;
-  --color-warn: #E8A33D;
-  --color-fail: #E2603F;
-  --color-accent: #E8A33D;
-
-  /* Type */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
-
-  /* Shape */
-  --radius-panel: 10px;
-  --radius-chip: 6px;
-}
+/*
+  Art direction: "Chart recorder".
+  Cool graph paper, ink-black type, one recorder-blue pen, and status colors that only ever mean status.
+  Fonts: Instrument Sans for UI, JetBrains Mono for numbers, URLs and timestamps.
+*/
 
 :root {
-  color-scheme: dark;
+  --paper: #eef2f0;
+  --paper-grid: rgb(16 32 27 / 0.055);
+  --paper-grid-strong: rgb(16 32 27 / 0.09);
+  --surface: #ffffff;
+  --surface-2: #f6f8f7;
+  --ink: #10201b;
+  --ink-2: #3d4e48;
+  --ink-3: #66766f;
+  --line: #d6deda;
+  --line-strong: #b6c4be;
+  --pen: #2347c6;
+  --pen-soft: #e3e9fb;
+  --up: #11875a;
+  --up-soft: #dcf1e6;
+  --degraded: #a96e06;
+  --degraded-soft: #fbefd3;
+  --down: #c83a28;
+  --down-soft: #fbe2dd;
+  --pending: #8a9993;
+  --shadow-card: 0 1px 0 rgb(16 32 27 / 0.04), 0 1px 2px rgb(16 32 27 / 0.06);
+  --shadow-pop: 0 12px 32px -12px rgb(16 32 27 / 0.28), 0 2px 6px rgb(16 32 27 / 0.08);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0c1311;
+    --paper-grid: rgb(228 236 232 / 0.035);
+    --paper-grid-strong: rgb(228 236 232 / 0.06);
+    --surface: #131c19;
+    --surface-2: #18231f;
+    --ink: #e4ece8;
+    --ink-2: #b3c0ba;
+    --ink-3: #82918b;
+    --line: #25312d;
+    --line-strong: #364640;
+    --pen: #86a1ff;
+    --pen-soft: #1c2747;
+    --up: #3cc98f;
+    --up-soft: #12302a;
+    --degraded: #e7ae3c;
+    --degraded-soft: #33281a;
+    --down: #f2654f;
+    --down-soft: #3a1d19;
+    --pending: #6f7e78;
+    --shadow-card: 0 1px 0 rgb(0 0 0 / 0.3);
+    --shadow-pop: 0 16px 40px -12px rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-pen: var(--pen);
+  --color-pen-soft: var(--pen-soft);
+  --color-up: var(--up);
+  --color-up-soft: var(--up-soft);
+  --color-degraded: var(--degraded);
+  --color-degraded-soft: var(--degraded-soft);
+  --color-down: var(--down);
+  --color-down-soft: var(--down-soft);
+  --color-pending: var(--pending);
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", monospace;
+  --radius-card: 12px;
+  --radius-ctl: 8px;
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-ink);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
 }
 
-/* Matte grain. Keeps large dark areas from looking like flat plastic. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+/* Graph paper: the signature surface of the product. */
+.graph-paper {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--paper-grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--paper-grid-strong) 1px, transparent 1px),
+    linear-gradient(var(--paper-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--paper-grid) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
 }
 
-/* Tabular numerals everywhere numbers are compared vertically. */
 .tabular {
-  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pen);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--pen-soft);
+  color: var(--ink);
+}
+
+/* Live status dot: a soft radar ping for "up". */
+@keyframes ping-soft {
+  0% { transform: scale(1); opacity: 0.55; }
+  80%, 100% { transform: scale(2.6); opacity: 0; }
+}
+.status-ping::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes draw-line {
+  from { stroke-dashoffset: var(--dash, 1200); }
+  to { stroke-dashoffset: 0; }
+}
+.draw-in {
+  stroke-dasharray: var(--dash, 1200);
+  animation: draw-line 1.4s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise-in {
+  animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes bar-grow {
+  from { transform: scaleY(0.2); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+.bar-grow {
+  transform-origin: bottom;
+  animation: bar-grow 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .status-ping::after { display: none; }
 }

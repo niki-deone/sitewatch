@@ -1,31 +1,35 @@
 // src/app/layout.tsx
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import "@fontsource-variable/instrument-sans";
+import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "SiteWatch",
-  description: "Continuous health monitoring for the sites you maintain.",
+  metadataBase: new URL(process.env.APP_URL ?? "http://localhost:3000"),
+  title: {
+    default: "SiteWatch: uptime monitoring for small teams",
+    template: "%s · SiteWatch",
+  },
+  description:
+    "SiteWatch checks your websites and APIs every few minutes, opens incidents when they fail, pings your team in Slack or Discord and gives you a public status page.",
+  openGraph: {
+    title: "SiteWatch",
+    description: "Uptime monitoring, incidents and status pages for small teams.",
+    type: "website",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#eef2f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c1311" },
+  ],
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="antialiased">{children}</body>
+    <html lang="en" className="h-full antialiased">
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
