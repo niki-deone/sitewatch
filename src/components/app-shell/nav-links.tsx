@@ -35,7 +35,7 @@ export function NavLinks({ slug, openIncidents, orientation = "vertical" }: { sl
             <Icon className={cx("size-4", active ? "text-pen" : "text-ink-3 group-hover:text-ink-2")} strokeWidth={1.8} aria-hidden />
             <span>{link.label}</span>
             {link.badge ? (
-              <span className="ml-auto rounded-full bg-down px-1.5 font-mono text-[11px] leading-5 text-white tabular">{link.badge}</span>
+              <span className="ml-auto rounded-full bg-down px-1.5 tabular text-[11px] leading-5 text-white">{link.badge}</span>
             ) : null}
           </Link>
         );

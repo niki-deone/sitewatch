@@ -27,7 +27,7 @@ export function StatusPreview() {
           <li key={service.name}>
             <div className="mb-2 flex items-center justify-between text-[13px]">
               <span className="font-semibold">{service.name}</span>
-              <span className="font-mono text-[11.5px] text-ink-3">{service.uptime}</span>
+              <span className="tabular text-[11.5px] text-ink-3">{service.uptime}</span>
             </div>
             <div className="flex h-7 items-end gap-[2px]" aria-hidden>
               {service.days.map((tone, index) => (

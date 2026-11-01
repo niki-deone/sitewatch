@@ -163,5 +163,5 @@ export function EmptyState({ title, description, action, icon }: { title: string
 }
 
 export function Kbd({ children }: { children: ReactNode }) {
-  return <kbd className="rounded border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[11px] text-ink-2">{children}</kbd>;
+  return <kbd className="rounded border border-line bg-surface-2 px-1.5 py-0.5 tabular text-[11px] text-ink-2">{children}</kbd>;
 }

@@ -111,7 +111,7 @@ export function LatencyChart({ points, range }: { points: LatencyPoint[]; range:
         {chart.yTicks.map((tick) => (
           <g key={tick.value}>
             <line x1={PAD.left} x2={width - PAD.right} y1={tick.y} y2={tick.y} stroke="var(--line)" strokeDasharray={tick.value === 0 ? undefined : "2 4"} />
-            <text x={PAD.left - 8} y={tick.y + 4} textAnchor="end" className="fill-ink-3 font-mono text-[10px]">
+            <text x={PAD.left - 8} y={tick.y + 4} textAnchor="end" className="fill-ink-3 tabular text-[10px]">
               {tick.value >= 1000 ? `${(tick.value / 1000).toFixed(1)}s` : `${tick.value}`}
             </text>
           </g>
@@ -123,7 +123,7 @@ export function LatencyChart({ points, range }: { points: LatencyPoint[]; range:
             x={tick.x}
             y={HEIGHT - 8}
             textAnchor={tick.index === 0 ? "start" : tick.index === points.length - 1 ? "end" : "middle"}
-            className="fill-ink-3 font-mono text-[10px]"
+            className="fill-ink-3 tabular text-[10px]"
           >
             {tick.label}
           </text>
@@ -174,7 +174,7 @@ export function LatencyChart({ points, range }: { points: LatencyPoint[]; range:
           <div className="font-medium">
             {new Date(hovered.t).toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
           </div>
-          <div className="mt-1 grid grid-cols-[auto_auto] gap-x-3 font-mono text-ink-2 tabular">
+          <div className="mt-1 grid grid-cols-[auto_auto] gap-x-3 tabular text-ink-2">
             <span className="text-ink-3">avg</span>
             <span>{formatMs(hovered.avg)}</span>
             <span className="text-ink-3">max</span>

@@ -143,7 +143,7 @@ export function RecorderTrace({ className, showReadout = true }: { className?: s
 
       {showReadout ? (
         <div
-          className="pointer-events-none absolute right-0 top-0 -translate-y-full pb-2 font-mono text-[12px] tabular"
+          className="pointer-events-none absolute right-0 top-0 -translate-y-full pb-2 tabular text-[12px]"
           aria-hidden
         >
           {head.down ? (

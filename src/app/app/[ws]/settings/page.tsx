@@ -49,7 +49,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ ws: s
                 {member.image ? (
                   <Image src={member.image} alt="" width={32} height={32} className="size-8 rounded-full border border-line" />
                 ) : (
-                  <span className="grid size-8 place-items-center rounded-full bg-ink font-mono text-[12px] text-paper">{member.name.slice(0, 1).toUpperCase()}</span>
+                  <span className="grid size-8 place-items-center rounded-full bg-ink tabular text-[12px] text-paper">{member.name.slice(0, 1).toUpperCase()}</span>
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-[13.5px] font-medium">

@@ -88,7 +88,7 @@ export function UptimeBars({
       ) : null}
 
       {showLegend ? (
-        <div className="mt-2 flex items-center justify-between font-mono text-[11px] text-ink-3">
+        <div className="mt-2 flex items-center justify-between tabular text-[11px] text-ink-3">
           <span>{days.length} days ago</span>
           <span className="tabular">{formatPercent(overall)} uptime</span>
           <span>Today</span>

@@ -65,7 +65,7 @@ export default async function MonitorPage({
         }
         description={
           <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <a href={monitor.url} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 font-mono text-[13px] text-pen hover:underline">
+            <a href={monitor.url} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 tabular text-[13px] text-pen hover:underline">
               {monitor.url}
               <ExternalLink className="size-3.5" aria-hidden />
             </a>
@@ -100,7 +100,7 @@ export default async function MonitorPage({
               <div className="text-[12.5px] font-medium text-ink-3">Uptime {window}</div>
               <div
                 className={cx(
-                  "mt-2 font-mono text-[22px] font-semibold tabular",
+                  "mt-2 tabular text-[22px] font-semibold",
                   value === null ? "text-ink-3" : value >= 99.9 ? "text-up" : value >= 99 ? "text-degraded" : "text-down",
                 )}
               >
@@ -125,7 +125,7 @@ export default async function MonitorPage({
                   href={option === "24h" ? base : `${base}?range=${option}`}
                   scroll={false}
                   className={cx(
-                    "rounded-md px-3 py-1 font-mono text-[12px] transition-colors",
+                    "rounded-md px-3 py-1 tabular text-[12px] transition-colors",
                     option === range ? "bg-surface text-ink shadow-card" : "text-ink-3 hover:text-ink",
                   )}
                 >
@@ -147,7 +147,7 @@ export default async function MonitorPage({
           ].map(([label, value], index) => (
             <div key={label as string} className={cx("px-5 py-3", index > 0 && "sm:border-l sm:border-line", index % 2 === 1 && "border-l border-line")}>
               <dt className="text-[12px] text-ink-3">{label}</dt>
-              <dd className="font-mono text-[15px] font-semibold tabular">{formatMs(value as number | null)}</dd>
+              <dd className="tabular text-[15px] font-semibold">{formatMs(value as number | null)}</dd>
             </div>
           ))}
         </dl>
@@ -165,9 +165,9 @@ export default async function MonitorPage({
           <CardHeader title="Configuration" />
           <dl className="grid gap-3 p-5 text-[13.5px]">
             <Row label="Interval" value={monitor.paused ? "Paused" : formatInterval(monitor.intervalSeconds)} />
-            <Row label="Method" value={<span className="font-mono">{monitor.method}</span>} />
-            <Row label="Expects" value={<span className="font-mono">{monitor.expectedStatus ?? "2xx / 3xx"}</span>} />
-            <Row label="Keyword" value={monitor.keyword ? <span className="font-mono">&ldquo;{monitor.keyword}&rdquo;</span> : "none"} />
+            <Row label="Method" value={<span className="tabular">{monitor.method}</span>} />
+            <Row label="Expects" value={<span className="tabular">{monitor.expectedStatus ?? "2xx / 3xx"}</span>} />
+            <Row label="Keyword" value={monitor.keyword ? <span className="tabular">&ldquo;{monitor.keyword}&rdquo;</span> : "none"} />
             <Row label="Timeout" value={`${monitor.timeoutMs / 1000} s`} />
             <Row label="Slow above" value={formatMs(monitor.degradedThresholdMs)} />
             <Row label="Last check" value={timeAgo(monitor.lastCheckedAt)} />
@@ -207,13 +207,13 @@ export default async function MonitorPage({
                 <tbody className="divide-y divide-line">
                   {detail.recentChecks.map((check) => (
                     <tr key={check.id} className="align-top">
-                      <td className="whitespace-nowrap px-5 py-2.5 font-mono text-ink-2 tabular">{formatDateTime(check.checkedAt)}</td>
+                      <td className="whitespace-nowrap px-5 py-2.5 tabular text-ink-2">{formatDateTime(check.checkedAt)}</td>
                       <td className="px-3 py-2.5">
                         <StatusPill status={check.status} label={check.status === "up" ? "Up" : undefined} />
                         {check.error ? <div className="mt-1 max-w-[260px] text-[12px] text-ink-3">{check.error}</div> : null}
                       </td>
-                      <td className="px-3 py-2.5 text-right font-mono tabular">{check.statusCode ?? "n/a"}</td>
-                      <td className="whitespace-nowrap px-5 py-2.5 text-right font-mono tabular">{formatMs(check.latencyMs)}</td>
+                      <td className="px-3 py-2.5 text-right tabular">{check.statusCode ?? "n/a"}</td>
+                      <td className="whitespace-nowrap px-5 py-2.5 text-right tabular">{formatMs(check.latencyMs)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -238,10 +238,10 @@ export default async function MonitorPage({
                     />
                     <div className="flex flex-wrap items-center gap-2 text-[13.5px] font-medium">
                       {incident.resolvedAt ? "Resolved" : "Ongoing"}
-                      <span className="font-mono text-[12px] font-normal text-ink-3">{formatDuration(end.getTime() - incident.startedAt.getTime())}</span>
+                      <span className="tabular text-[12px] font-normal text-ink-3">{formatDuration(end.getTime() - incident.startedAt.getTime())}</span>
                     </div>
                     <div className="mt-0.5 text-[13px] text-ink-2">{incident.cause}</div>
-                    <div className="mt-0.5 font-mono text-[11.5px] text-ink-3">{formatDateTime(incident.startedAt)}</div>
+                    <div className="mt-0.5 tabular text-[11.5px] text-ink-3">{formatDateTime(incident.startedAt)}</div>
                   </li>
                 );
               })}

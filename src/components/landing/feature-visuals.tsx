@@ -49,7 +49,7 @@ export function PipelineVisual() {
           className={`flex items-center justify-between rounded-lg border px-3 py-2 text-[12.5px] ${step.tone}`}
         >
           <span className="font-semibold">{step.label}</span>
-          <span className="font-mono text-[11.5px] opacity-80">{step.detail}</span>
+          <span className="tabular text-[11.5px] opacity-80">{step.detail}</span>
         </motion.div>
       ))}
     </div>
@@ -100,7 +100,7 @@ export function TeamVisual() {
     <div className="flex flex-wrap gap-2">
       {people.map((person) => (
         <span key={person.role} className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3 text-[12.5px]">
-          <span className={`grid size-6 place-items-center rounded-full font-mono text-[11px] font-semibold ${person.color}`}>{person.initial}</span>
+          <span className={`grid size-6 place-items-center rounded-full tabular text-[11px] font-semibold ${person.color}`}>{person.initial}</span>
           {person.role}
         </span>
       ))}

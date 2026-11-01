@@ -39,7 +39,7 @@ export default async function PublicStatusPage({ params }: { params: Promise<{ s
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
         <header className="mb-8 flex items-center justify-between gap-4">
           <h1 className="text-[24px] font-semibold tracking-tight sm:text-[28px]">{page.workspace.title}</h1>
-          <span className="font-mono text-[12px] text-ink-3">updated every minute</span>
+          <span className="tabular text-[12px] text-ink-3">updated every minute</span>
         </header>
 
         <div className={cx("rise-in flex items-center gap-3 rounded-[var(--radius-card)] px-5 py-4 shadow-card", banner.className)}>
@@ -57,12 +57,12 @@ export default async function PublicStatusPage({ params }: { params: Promise<{ s
                   <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                     <span className="text-[15px] font-semibold">{monitor.name}</span>
                     <div className="flex items-center gap-3">
-                      <span className="font-mono text-[12.5px] text-ink-3 tabular">{formatPercent(monitor.uptime90d, 2)} uptime</span>
+                      <span className="tabular text-[12.5px] text-ink-3">{formatPercent(monitor.uptime90d, 2)} uptime</span>
                       <StatusPill status={monitor.status} label={monitor.status === "pending" ? "Not monitored" : undefined} />
                     </div>
                   </div>
                   <UptimeBars days={monitor.days} height={34} />
-                  <div className="mt-1.5 flex justify-between font-mono text-[11px] text-ink-3">
+                  <div className="mt-1.5 flex justify-between tabular text-[11px] text-ink-3">
                     <span>90 days ago</span>
                     <span>Today</span>
                   </div>
@@ -84,7 +84,7 @@ export default async function PublicStatusPage({ params }: { params: Promise<{ s
                     <span className="text-[14px] font-semibold">{incident.monitorName} {incident.resolvedAt ? "was unavailable" : "is unavailable"}</span>
                     <StatusPill status={incident.resolvedAt ? "up" : "down"} label={incident.resolvedAt ? "Resolved" : "Investigating"} />
                   </div>
-                  <p className="mt-1 font-mono text-[12px] text-ink-3">
+                  <p className="mt-1 tabular text-[12px] text-ink-3">
                     {formatDateTime(incident.startedAt)} · {incident.resolvedAt ? "lasted" : "ongoing for"} {formatDuration((incident.resolvedAt ?? new Date()).getTime() - incident.startedAt.getTime())}
                   </p>
                 </li>

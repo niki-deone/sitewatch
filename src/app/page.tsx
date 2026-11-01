@@ -53,10 +53,10 @@ export default async function LandingPage() {
         {/* Hero: one statement, one action, then the product itself. */}
         <section className="mx-auto max-w-[1200px] px-4 pt-16 text-center sm:px-6 sm:pt-24">
           <Reveal>
-            <h1 className="display mx-auto text-[42px] sm:text-[60px] lg:text-[76px]">
+            <h1 className="display mx-auto text-[40px] sm:text-[54px] lg:text-[64px] xl:text-[72px]">
               Know it&apos;s down
               <br />
-              <span className="sm:whitespace-nowrap">
+              <span className="xl:whitespace-nowrap">
                 before your <RotatingWord /> do.
               </span>
             </h1>
@@ -170,7 +170,7 @@ export default async function LandingPage() {
                   <strong className="font-semibold text-ink">Postgres with Drizzle.</strong> Uptime and charts are aggregated in SQL, not in the browser.
                 </li>
                 <li>
-                  <strong className="font-semibold text-ink">Safe scheduler.</strong> Monitors are claimed with <code className="font-mono text-[13px]">FOR UPDATE SKIP LOCKED</code>, so overlapping runs never double-check.
+                  <strong className="font-semibold text-ink">Safe scheduler.</strong> Monitors are claimed with <code className="tabular text-[13px]">FOR UPDATE SKIP LOCKED</code>, so overlapping runs never double-check.
                 </li>
                 <li>
                   <strong className="font-semibold text-ink">SSRF protection.</strong> Private and cloud-metadata addresses are refused on every redirect hop.

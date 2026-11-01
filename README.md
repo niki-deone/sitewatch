@@ -29,7 +29,7 @@ Uptime monitoring for small teams. SiteWatch checks websites and APIs on a sched
 ## Tech stack
 
 - **Next.js 16** (App Router, Server Components, Server Actions), **React 19**, **TypeScript** strict
-- **Tailwind CSS v4** with a small token-based design system (Inter, one accent colour), **Motion** for landing page animation
+- **Tailwind CSS v4** with a small token-based design system (Manrope, one accent colour), **Motion** for landing page animation
 - **Postgres** (Neon in production) with **Drizzle ORM** and SQL migrations
 - **Auth.js v5** with GitHub OAuth and JWT sessions
 - **Vitest** for unit tests, GitHub Actions for CI and for the 5-minute scheduler

@@ -65,7 +65,7 @@ export function MonitorForm({
             <Input id="name" name="name" defaultValue={val("name")} placeholder="Marketing site" autoComplete="off" aria-invalid={Boolean(errors.name)} required maxLength={60} />
           </Field>
           <Field label="URL" htmlFor="url" error={errors.url} hint="Public http or https address. https:// is added if you skip it.">
-            <Input id="url" name="url" type="url" inputMode="url" defaultValue={val("url")} placeholder="https://example.com/health" className="font-mono text-[13px]" aria-invalid={Boolean(errors.url)} required />
+            <Input id="url" name="url" type="url" inputMode="url" defaultValue={val("url")} placeholder="https://example.com/health" className="tabular text-[13px]" aria-invalid={Boolean(errors.url)} required />
           </Field>
         </div>
 
@@ -89,7 +89,7 @@ export function MonitorForm({
             </Select>
           </Field>
           <Field label="Slow above (ms)" htmlFor="degradedThresholdMs" error={errors.degradedThresholdMs} hint="Slower answers count as degraded.">
-            <Input id="degradedThresholdMs" name="degradedThresholdMs" type="number" min={200} max={30000} step={100} defaultValue={val("degradedThresholdMs")} className="font-mono" />
+            <Input id="degradedThresholdMs" name="degradedThresholdMs" type="number" min={200} max={30000} step={100} defaultValue={val("degradedThresholdMs")} className="tabular" />
           </Field>
         </div>
 
@@ -112,7 +112,7 @@ export function MonitorForm({
               </Select>
             </Field>
             <Field label="Expected status" htmlFor="expectedStatus" error={errors.expectedStatus} hint="Empty means any 2xx or 3xx.">
-              <Input id="expectedStatus" name="expectedStatus" type="number" min={100} max={599} defaultValue={val("expectedStatus")} placeholder="200" className="font-mono" />
+              <Input id="expectedStatus" name="expectedStatus" type="number" min={100} max={599} defaultValue={val("expectedStatus")} placeholder="200" className="tabular" />
             </Field>
             <Field label="Must contain" htmlFor="keyword" error={errors.keyword} hint="Text that has to appear in the response (GET only).">
               <Input id="keyword" name="keyword" defaultValue={val("keyword")} placeholder="Welcome" maxLength={200} />

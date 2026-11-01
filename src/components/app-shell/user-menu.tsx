@@ -10,7 +10,7 @@ export function UserMenu({ user }: { user: CurrentUser }) {
       {user.image ? (
         <Image src={user.image} alt="" width={30} height={30} className="size-[30px] rounded-full border border-line" />
       ) : (
-        <span className="grid size-[30px] place-items-center rounded-full bg-ink font-mono text-[12px] text-paper">
+        <span className="grid size-[30px] place-items-center rounded-full bg-ink tabular text-[12px] text-paper">
           {user.name.slice(0, 1).toUpperCase()}
         </span>
       )}

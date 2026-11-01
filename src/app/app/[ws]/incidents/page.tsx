@@ -55,16 +55,16 @@ export default async function IncidentsPage({ params }: { params: Promise<{ ws: 
                         <StatusPill status={incident.resolvedAt ? "up" : "down"} label={incident.resolvedAt ? "Resolved" : "Ongoing"} />
                       </div>
                       <div className="mt-1 text-[13px] text-ink-2">{incident.cause}</div>
-                      <div className="mt-0.5 truncate font-mono text-[12px] text-ink-3">{hostOf(incident.monitorUrl)}</div>
+                      <div className="mt-0.5 truncate tabular text-[12px] text-ink-3">{hostOf(incident.monitorUrl)}</div>
                     </div>
                     <div className="flex gap-6 text-[12.5px] sm:text-right">
                       <div>
                         <div className="text-ink-3">Started</div>
-                        <div className="font-mono tabular">{formatDateTime(incident.startedAt)}</div>
+                        <div className="tabular">{formatDateTime(incident.startedAt)}</div>
                       </div>
                       <div>
                         <div className="text-ink-3">Duration</div>
-                        <div className="font-mono tabular">{formatDuration(end.getTime() - incident.startedAt.getTime())}</div>
+                        <div className="tabular">{formatDuration(end.getTime() - incident.startedAt.getTime())}</div>
                       </div>
                     </div>
                   </Link>

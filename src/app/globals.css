@@ -5,7 +5,7 @@
   Art direction: "Calm workspace".
   White pages, warm-grey surfaces, heavy tight headlines, one blue for actions.
   Status colours (green, amber, red) are only ever used for status.
-  Inter for everything people read; JetBrains Mono only for data (latency, URLs, timestamps).
+  Manrope for everything, numbers set with tabular figures so columns line up. No monospace.
 */
 
 :root {
@@ -85,8 +85,7 @@
   --color-down-soft: var(--down-soft);
   --color-pending: var(--pending);
   --color-night: var(--night);
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --radius-card: 12px;
   --radius-ctl: 8px;
   --shadow-card: var(--shadow-card);
@@ -103,7 +102,6 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-feature-settings: "cv11", "ss01", "ss03";
 }
 
 /* Kept as a hook for page backgrounds; the look is now a plain page. */
@@ -111,10 +109,11 @@ body {
   background-color: var(--paper);
 }
 
+/* Big headlines: Manrope at 750, between Figtree's softness and Manrope's 800 punch. */
 .display {
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1.02;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
 }
 
 .tabular {

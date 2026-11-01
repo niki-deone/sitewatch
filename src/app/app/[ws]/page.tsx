@@ -131,7 +131,7 @@ function MonitorRow({ monitor, slug, index }: { monitor: MonitorSummary; slug: s
               <ArrowUpRight className="size-3.5 shrink-0 text-ink-3 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden />
             </div>
             <div className="mt-0.5 flex flex-wrap items-center gap-x-2 text-[12.5px] text-ink-3">
-              <span className="truncate font-mono">{hostOf(monitor.url)}</span>
+              <span className="truncate tabular">{hostOf(monitor.url)}</span>
               <span aria-hidden>·</span>
               <span>{monitor.paused ? "paused" : formatInterval(monitor.intervalSeconds)}</span>
               <span aria-hidden className="hidden sm:inline">·</span>
@@ -145,7 +145,7 @@ function MonitorRow({ monitor, slug, index }: { monitor: MonitorSummary; slug: s
 
         <div className="flex items-center gap-3">
           <Sparkline values={monitor.sparkline} status={status} width={88} height={28} />
-          <span className="whitespace-nowrap font-mono text-[12.5px] text-ink-2 tabular">{formatMs(monitor.lastLatencyMs)}</span>
+          <span className="whitespace-nowrap tabular text-[12.5px] text-ink-2">{formatMs(monitor.lastLatencyMs)}</span>
         </div>
 
         <UptimeBars days={monitor.days} height={26} />
@@ -154,7 +154,7 @@ function MonitorRow({ monitor, slug, index }: { monitor: MonitorSummary; slug: s
           <span className="text-[12px] text-ink-3 md:hidden">30-day uptime</span>
           <span
             className={cx(
-              "font-mono text-[14px] font-semibold tabular",
+              "tabular text-[14px] font-semibold",
               monitor.uptime30d === null ? "text-ink-3" : monitor.uptime30d >= 99.9 ? "text-up" : monitor.uptime30d >= 99 ? "text-degraded" : "text-down",
             )}
           >

@@ -80,7 +80,7 @@ export function ProductWindow() {
             <div className="mt-4 rounded-[10px] border border-line">
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-2.5">
                 <span className="text-[12.5px] font-semibold">api.acme.com · response time</span>
-                <span className="font-mono text-[11px] text-ink-3">p95 412 ms · 30d 99.94%</span>
+                <span className="tabular text-[11px] text-ink-3">p95 412 ms · 30d 99.94%</span>
               </div>
               <div className="px-3 pb-3 pt-10 sm:px-4">
                 <RecorderTrace className="h-[130px] w-full sm:h-[170px]" />
@@ -94,7 +94,7 @@ export function ProductWindow() {
                     <span className={`size-2 shrink-0 rounded-full ${toneBg[row.status]}`} aria-hidden />
                     <div className="min-w-0">
                       <div className="truncate text-[12.5px] font-semibold">{row.name}</div>
-                      <div className="truncate font-mono text-[10.5px] text-ink-3">{row.host}</div>
+                      <div className="truncate tabular text-[10.5px] text-ink-3">{row.host}</div>
                     </div>
                   </div>
                   <div className="hidden h-5 items-end gap-[2px] sm:flex" aria-hidden>
@@ -103,7 +103,7 @@ export function ProductWindow() {
                     ))}
                   </div>
                   <div className="text-right">
-                    <div className={`font-mono text-[11.5px] font-semibold tabular ${row.status === "down" ? "text-down" : "text-ink"}`}>{row.ms}</div>
+                    <div className={`text-[11.5px] font-semibold tabular ${row.status === "down" ? "text-down" : "text-ink"}`}>{row.ms}</div>
                     <div className={`text-[10.5px] ${toneText[row.status === "down" ? "down" : "up"]}`}>{row.uptime}</div>
                   </div>
                 </li>

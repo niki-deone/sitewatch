@@ -75,7 +75,7 @@ export function GeneralSettingsForm({
               type="url"
               defaultValue={v?.webhookUrl ?? defaults.webhookUrl ?? ""}
               placeholder="https://hooks.slack.com/services/…"
-              className="font-mono text-[13px]"
+              className="tabular text-[13px]"
               aria-invalid={Boolean(errors.webhookUrl)}
             />
           </Field>
@@ -133,7 +133,7 @@ export function InviteForm({ action }: { action: (state: FormState & { link?: st
         <div className="rise-in grid gap-2 rounded-[var(--radius-ctl)] border border-pen/30 bg-pen-soft/40 p-3">
           <p className="text-[12.5px] text-ink-2">{state.message}</p>
           <div className="flex gap-2">
-            <Input readOnly value={fullLink} className="font-mono text-[12px]" onFocus={(event) => event.currentTarget.select()} aria-label="Invite link" />
+            <Input readOnly value={fullLink} className="tabular text-[12px]" onFocus={(event) => event.currentTarget.select()} aria-label="Invite link" />
             <Button
               type="button"
               variant="secondary"
@@ -199,10 +199,10 @@ export function DangerZone({
       {isOwner ? (
         <form action={formAction} className="mt-3 grid gap-3">
           <p className="text-[13.5px] text-ink-2">
-            Deleting the workspace removes every monitor, check, incident and member. Type <span className="font-mono font-semibold text-ink">{slug}</span> to confirm.
+            Deleting the workspace removes every monitor, check, incident and member. Type <span className="tabular font-semibold text-ink">{slug}</span> to confirm.
           </p>
           <div className="flex flex-wrap gap-2">
-            <Input name="confirm" autoComplete="off" placeholder={slug} className="max-w-xs font-mono text-[13px]" aria-label="Workspace slug" />
+            <Input name="confirm" autoComplete="off" placeholder={slug} className="max-w-xs tabular text-[13px]" aria-label="Workspace slug" />
             <Button type="submit" variant="danger" disabled={pending}>
               {pending ? <Loader2 className="size-4 animate-spin" aria-hidden /> : <Trash2 className="size-4" aria-hidden />}
               Delete workspace

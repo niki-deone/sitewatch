@@ -34,7 +34,7 @@ export function AutoRefresh({ seconds = 60 }: { seconds?: number }) {
   }, [router, seconds]);
 
   return (
-    <span className="inline-flex items-center gap-1.5 font-mono text-[11.5px] text-ink-3 tabular" aria-live="off">
+    <span className="inline-flex items-center gap-1.5 tabular text-[11.5px] text-ink-3" aria-live="off">
       <span className="relative inline-block size-1.5 rounded-full bg-up text-up status-ping" aria-hidden />
       live · {remaining}s
     </span>
